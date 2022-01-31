@@ -1,10 +1,10 @@
 #include "GyverTimer.h"
 
-byte PWM_PIN = 3; // Пин сигнала приёмника
+byte PWM_PIN = 11; // Пин сигнала приёмника
 
-byte LEFT_LED = 5; // Пин левого светодиода
+byte LEFT_LED = 3; // Пин левого светодиода
 byte RIGHT_LED = 6; // Пин правого светодиода
-byte BUZZER_PIN = 10; // Пин пищалки
+byte BUZZER_PIN = 9; // Пин пищалки
 
 
 GTimer Timer_Long_Lat(MS, 1400); // Таймер переключения светодиодов
@@ -17,6 +17,8 @@ GTimer Timer_Buzzer(MS, 400); // Таймер пищалки
 
 void setup() {
 	pinMode(PWM_PIN, INPUT);
+	pinMode(LEFT_LED, OUTPUT);
+	pinMode(RIGHT_LED, OUTPUT);
 	pinMode(BUZZER_PIN, OUTPUT);
 	Serial.begin(115200);
 }
