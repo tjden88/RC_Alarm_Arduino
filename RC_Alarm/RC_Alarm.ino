@@ -4,7 +4,7 @@ byte PWM_PIN = 3; // Пин сигнала приёмника
 
 byte LEFT_LED = 5; // Пин левого светодиода
 byte RIGHT_LED = 6; // Пин правого светодиода
-byte BUZZER_PIN = 0; // Пин пищалки
+byte BUZZER_PIN = 10; // Пин пищалки
 
 
 GTimer Timer_Long_Lat(MS, 1400); // Таймер переключения светодиодов
@@ -12,8 +12,12 @@ GTimer Timer_Small_Lat(MS); // Таймер малой задержки светодиодов
 int small_timeout = 90; // Таймаут мигания светодиодов
 byte blinks_count = 3; // Количество миганий каждого светодиода
 
+GTimer Timer_Buzzer(MS, 400); // Таймер пищалки
+
+
 void setup() {
 	pinMode(PWM_PIN, INPUT);
+	pinMode(BUZZER_PIN, OUTPUT);
 	Serial.begin(115200);
 }
 
@@ -24,14 +28,17 @@ void loop() {
 
 	if (pwm_value < 1250) {
 		leds_off();
+		buzzer_off();
 	}
 	else if (pwm_value < 1500)
 	{
 		leds_on();
+		buzzer_off();
 	}
 	else if (pwm_value < 1750)
 	{
 		leds_blink();
+		buzzer_off();
 	}
 	else if (pwm_value >= 1750)
 	{
@@ -85,6 +92,16 @@ void leds_off() {
 	digitalWrite(LEFT_LED, LOW);
 }
 
+bool buzzer_is_on = false;
+
 void buzzer_sound() {
-	Serial.println("buzzer_sound");
+	if (Timer_Buzzer.isReady()) {
+
+		buzzer_is_on = !buzzer_is_on;
+		digitalWrite(BUZZER_PIN, buzzer_is_on);
+	}
+}
+
+void buzzer_off() {
+	digitalWrite(BUZZER_PIN, LOW);
 }
