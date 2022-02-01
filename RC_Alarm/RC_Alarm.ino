@@ -7,12 +7,12 @@ byte RIGHT_LED = 6; // Пин правого светодиода
 byte BUZZER_PIN = 9; // Пин пищалки
 
 
-GTimer Timer_Long_Lat(MS, 1400); // Таймер переключения светодиодов
+GTimer Timer_Long_Lat(MS, 1000); // Таймер переключения светодиодов
 GTimer Timer_Small_Lat(MS); // Таймер малой задержки светодиодов
-int small_timeout = 90; // Таймаут мигания светодиодов
-byte blinks_count = 3; // Количество миганий каждого светодиода
+int small_timeout = 80; // Таймаут мигания светодиодов
+byte blinks_count = 2; // Количество миганий каждого светодиода
 
-GTimer Timer_Buzzer(MS, 400); // Таймер пищалки
+GTimer Timer_Buzzer(MS, 350); // Таймер пищалки
 
 
 void setup() {
